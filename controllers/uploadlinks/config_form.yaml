@@ -1,0 +1,10 @@
+name: Upload Link
+form: $/mercator/qruploader/models/uploadlink/fields.yaml
+modelClass: Mercator\QrUploader\Models\UploadLink
+defaultRedirect: mercator/qruploader/uploadlinks
+create:
+    redirect: mercator/qruploader/uploadlinks/update/:id
+    redirectClose: mercator/qruploader/uploadlinks
+update:
+    redirect: mercator/qruploader/uploadlinks
+    redirectClose: mercator/qruploader/uploadlinks

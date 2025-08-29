@@ -1,0 +1,28 @@
+fields:
+    first_name:
+        label: First Name
+        span: left
+    last_name:
+        label: Last Name
+        span: right
+    email:
+        label: Email
+        span: left
+    password:
+        label: Password
+        type: password
+        span: right
+    role:
+        label: Role
+        type: dropdown
+        options:
+            admin: Admin
+            owner: Owner
+            contributor: Contributor
+            viewer: Viewer
+        span: left
+    is_active:
+        label: Active
+        type: switch
+        default: true
+        span: right

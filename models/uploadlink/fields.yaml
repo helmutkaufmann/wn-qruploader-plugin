@@ -1,0 +1,79 @@
+tabs:
+    fields:
+        title:
+            label: 'Titel'
+            tab: 'Inhalt'
+            type: text
+            span: left
+            required: true
+
+        target_directory:
+            label: 'Verzeichnis'
+            tab: 'Inhalt'
+            type: mediafinder
+            mode: folder
+            span: right
+            comment: 'Verzeichnis, in das die Bilder geladen werden.'
+            required: true
+
+        description:
+            label: 'Beschreibung'
+            tab: 'Inhalt'
+            type: richeditor
+            size: small
+            default: 'Bitte QR-Code lesen um zur Upload-Website zu gelangen.'
+        
+        short_code:
+            label: 'Short URL / Code'
+            tab: 'Inhalt'
+            type: text
+            readOnly: true
+            comment: 'This is the unique code for the URL. Example: yoursite.com/upload/THIS_CODE'
+            context: update
+
+        start_date:
+            label: 'Upload verfügbar von'
+            tab: 'Verfügbarkeit & Sicherheit'
+            type: datepicker
+            mode: datetime
+            span: left
+            required: true
+
+        end_date:
+            label: 'Upload verfügbar bis'
+            tab: 'Verfügbarkeit & Sicherheit'
+            type: datepicker
+            mode: datetime
+            span: right
+            required: true
+
+        allowed_extensions:
+            label: 'Erlaubte Dateiendungen'
+            tab: 'Verfügbarkeit & Sicherheit'
+            type: text
+            span: left
+            comment: 'Komma-getrennte Liste (z.B. jpg,jpeg,png,pdf). Leer lassen für Standard-Bildformate.'
+
+        password:
+            label: 'Passwort (optional)'
+            tab: 'Verfügbarkeit & Sicherheit'
+            type: password
+            comment: 'Leer lassen, um kein Password zu setzen. Bestehendes Passwort wird beim Speichern überschrieben.'
+        
+        is_active:
+            label: 'Aktiv'
+            tab: 'Verfügbarkeit & Sicherheit'
+            type: switch
+            default: true
+
+        users:
+            tab: Users
+            label: Associated Users
+            type: relation
+            stretch: true
+            view:
+                # Explicitly tell the widget to show the toolbar buttons
+                toolbarButtons: add|create|remove
+
+                # Explicitly tell the widget where to find the list columns
+                list: $/mercator/qruploader/models/user/columns.yaml

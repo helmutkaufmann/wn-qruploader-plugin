@@ -1,0 +1,19 @@
+columns:
+    title:
+        label: Title
+        type: text
+        searchable: true
+    short_code:
+        label: Short Code
+        type: text
+    start_date:
+        label: Available From
+        type: datetime
+        format: 'Y-m-d H:i'
+    end_date:
+        label: Available Until
+        type: datetime
+        format: 'Y-m-d H:i'
+    is_active:
+        label: Active
+        type: switch

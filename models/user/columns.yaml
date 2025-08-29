@@ -1,0 +1,15 @@
+columns:
+    first_name:
+        label: First Name
+        searchable: true
+    last_name:
+        label: Last Name
+        searchable: true
+    email:
+        label: Email
+        searchable: true
+    role:
+        label: Role
+    is_active:
+        label: Active
+        type: switch

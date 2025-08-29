@@ -1,0 +1,18 @@
+name: 'AAA QR Code Display'
+description: 'Displays a QR code for a specific upload link.'
+icon: icon-qrcode
+tags: ["pages", "content"]
+fields:
+    short_code:
+        label: 'Upload Link Short Code'
+        comment: 'Enter the unique short code of the upload link you want to display.'
+        type: text
+        required: true
+==
+{% if short_code %}
+    <div class="qr-code-block">
+        {% component 'qrDisplay' shortCode=short_code %}
+    </div>
+{% else %}
+    <p>[Please enter a Short Code in the block settings to display the QR Code]</p>
+{% endif %}

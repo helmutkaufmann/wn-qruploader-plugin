@@ -1,0 +1,114 @@
+<div class="uk-container" style="margin-top: 40px;">
+    {% if error %}
+        <div class="uk-alert-danger" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <h3>Upload nicht verfügbar</h3>
+            <p>{{ error }}</p>
+        </div>
+    {% elseif link %}
+        <div class="uk-card uk-card-default">
+            <div class="uk-card-header">
+                <h1>{{ link.title }}</h1>
+            </div>
+            <div class="uk-card-body">
+                {% if not isAuthenticated %}
+                    <form data-request="{{ __SELF__ }}::onAuthenticate" data-request-flash>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="passwordInput">Dieser Bereich ist passwortgeschützt. Bitte gib das Passwort ein.</label>
+                            <div class="uk-form-controls">
+                                <input type="password" name="password" id="passwordInput" class="uk-input" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="uk-button uk-button-secondary">Anmelden</button>
+                    </form>
+                {% else %}
+                    <form id="uploadForm" data-request="{{ __SELF__ }}::onUpload" data-request-files data-request-flash>
+                         <div class="uk-margin">
+                            <label for="imageInput"><h2>Bilder zum Hochladen auswählen (max. 10 MB pro Bild)</h2></label>
+                             <div class="uk-placeholder uk-text-center">
+                                 <span uk-icon="icon: cloud-upload"></span>
+                                 <div uk-form-custom>
+                                     <input type="file" name="images[]" id="imageInput" multiple required>
+                                     <span class="uk-link">Ziehe Bilder hierher oder klicke hier um sie auszuwählen.</span>
+                                 </div>
+                             </div>
+                            <div id="uploadStatus" class="uk-margin uk-text-center" style="display: none;"></div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="uk-alert-danger" uk-alert>
+            <p>Konfiguration konnte nicht geladen werden. Der Link ist möglicherweise ungültig.</p>
+        </div>
+    {% endif %}
+
+    {% if isAuthenticated and latestImages %}
+        <div style="margin-top: 40px;">
+             <hr class="uk-divider-icon">
+             <h2 class="uk-margin-medium-top">Zuletzt hochgeladene Bilder</h2>
+             <div class="uk-child-width-1-2 uk-child-width-1-3@s uk-child-width-1-4@m" uk-grid="masonry: true" uk-lightbox="animation: slide">
+                 {% for image in latestImages %}
+                     <div>
+                         <a href="{{ image.path | media | resize(imageOptions.width, imageOptions.height, imageOptions.options) }}" data-caption="{{ image.title|replace({'-': ' ', '_': ' '})|title }}">
+                             <img src="{{ image.path | media | resize(thumbOptions.width, thumbOptions.height, thumbOptions.options) }}"
+                                  alt="{{ image.title|replace({'-': ' ', '_': ' '})|title }}"
+                                  class="uk-img"
+                                  loading="lazy">
+                         </a>
+                     </div>
+                 {% endfor %}
+             </div>
+        </div>
+    {% endif %}
+</div>
+
+{% framework extras %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadForm = document.getElementById('uploadForm');
+    const imageInput = document.getElementById('imageInput');
+    const uploadStatus = document.getElementById('uploadStatus');
+
+    if (imageInput) {
+        imageInput.addEventListener('change', function () {
+            if (this.files.length > 0) {
+                $(uploadForm).request('{{ __SELF__ }}::onUpload');
+            }
+        });
+    }
+
+    if (uploadForm) {
+        $(uploadForm)
+            .on('ajaxPromise', function () {
+                if (uploadStatus) {
+                    uploadStatus.innerHTML = `
+                        <span uk-spinner="ratio: 0.8"></span>
+                        <span class="uk-text-meta"> Lade Bilder hoch...</span>
+                    `;
+                    uploadStatus.style.display = 'block';
+                }
+            })
+            .on('ajaxFail', function () {
+                if (uploadStatus) {
+                    uploadStatus.style.display = 'none';
+                }
+            })
+            .on('ajaxDone', function (event, context, data) {
+                if (uploadStatus) {
+                    uploadStatus.innerHTML = `
+                        <span uk-icon="icon: check" class="uk-text-success"></span>
+                        <span class="uk-text-meta uk-text-success"> Upload erfolgreich! Seite wird neu geladen...</span>
+                    `;
+                }
+
+                if (data && data.redirectUrl) {
+                    setTimeout(function() {
+                        window.location.href = data.redirectUrl;
+                    }, 1500); 
+                }
+            });
+    }
+});
+</script>

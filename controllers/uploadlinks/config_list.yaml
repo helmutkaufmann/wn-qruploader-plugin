@@ -1,0 +1,17 @@
+title: Upload Links
+modelClass: Mercator\QrUploader\Models\UploadLink
+list: $/mercator/qruploader/models/uploadlink/columns.yaml
+recordUrl: mercator/qruploader/uploadlinks/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+
+# This is the final, correct toolbar configuration
+toolbar:
+    # This tells the toolbar to render our custom button partial
+    buttons: $/mercator/qruploader/controllers/uploadlinks/_list_toolbar.htm
+
+    # This adds the search functionality
+    search:
+        prompt: backend::lang.list.search_prompt

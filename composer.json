@@ -1,0 +1,12 @@
+{
+    "name": "mercator/qruploader-plugin",
+    "type": "winter-plugin",
+    "require": {
+        "chillerlan/php-qrcode": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mercator\\Qruploader\\": ""
+        }
+    }
+}

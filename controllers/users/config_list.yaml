@@ -1,0 +1,17 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Manage Users
+list: $/mercator/qruploader/models/user/columns.yaml
+modelClass: Mercator\QrUploader\Models\User
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showCheckboxes: true
+
+# Use the partial file for the toolbar
+toolbar:
+    buttons: list_toolbar
+
+search:
+    prompt: 'backend::lang.list.search_prompt'

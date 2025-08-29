@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: User
+form: $/mercator/qruploader/models/user/fields.yaml
+modelClass: Mercator\QrUploader\Models\User
+defaultRedirect: mercator/qruploader/users
+
+create:
+    redirect: mercator/qruploader/users/update/:id
+    redirectClose: mercator/qruploader/users
+
+update:
+    redirect: mercator/qruploader/users
+    redirectClose: mercator/qruploader/users

@@ -1,0 +1,19 @@
+{% if link and qrCodeDataUri %}
+    <div class="image-uploader-print-block" style="max-width: 500px; margin: 30px auto; padding: 25px; border: 1px solid #bbb; font-family: sans-serif; text-align: center;">
+        <h1 style="margin-top: 0; color: #000;">{{ link.title }}</h1>
+        <p style="color: #000; margin-bottom: 20px;">{{ link.description|raw }}</p>
+        <div>
+            <a href="{{ uploadUrl }}">
+                <img src="{{ qrCodeDataUri }}" alt="Upload QR Code for {{ link.title }}" style="width: 300px; height: 300px;">
+            </a>
+            <p style="margin-top: 15px; font-size: 14px; word-break: break-all;">
+                Oder Link benutzen: <a href="{{ uploadUrl }}">{{ uploadUrl }}</a>
+            </p>
+        </div>
+    </div>
+{% else %}
+    <div style="padding: 15px; border: 1px solid #d9534f; color: #d9534f;">
+        <strong>Fehler:</strong> Upload Link mit dem Code "{{ __SELF__.property('shortCode') }}" nicht gefunden oder QR-Code konnte nicht generiert werden.
+    </div>
+{{ qrCodeDataUri }}
+{% endif %}

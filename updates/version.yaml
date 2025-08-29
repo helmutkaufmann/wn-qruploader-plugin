@@ -1,0 +1,12 @@
+'1.0.0':
+    - 'First version of Qruploader'
+'1.0.1':
+    - Database Creation
+    - create_upload_links_table.php
+'1.0.2':
+    - Add allowed extensions
+    - 01_00_02_add_extensions_to_upload_links_table.php
+'1.1.0':
+    - 'Adds user management for upload links'
+    - create_users_table.php
+    - create_uploadlinks_users_table.php
